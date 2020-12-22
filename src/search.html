@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>経路検索</title>
+    </head>
+
+    <body>
+        <header>
+            交通アプリ
+        </header>
+        <nav>
+            <ol>
+                <li>経路検索</li>
+                <li>決済手段登録</li>
+                <li>利用額の確認</li>
+            </ol>
+        </nav>
+        <section>
+            <h2>経路検索</h2>
+            <form action =""　method="post">
+                出発地  <input type="text" name="departure" /><br />
+                到着地  <input type="text" name="destination" /><br />
+                利用日　
+                    <select name="date">
+                        <option value="2020-12-25" selected="selected">2020年12月25日(金)</option>
+                    </select>
+                    <select name="hour">
+                        <option value="1o" selected="selected">10</option>
+                    </select>時
+                    <select name="minute">
+                        <option value="1o" selected="selected">10</option>
+                    </select>分<br />
+                <input type="radio" name="depTime" value = "true" checked = "checked" />出発時刻指定
+                <input type="radio" name="arvTime" value = "true" />到着時刻指定<br />
+                優先事項　
+                    <select name = "priority">
+                        <option value="faster" selected="selected">速さ優先</option>
+                        <option value="cheeper">安さ優先</option>
+                        <option value="change">乗換の少なさ優先</option>
+                    </select>
+                <input type="checkbox" name="addFee"　value="true" />有料列車を利用する<br />
+                <input type="text" name="submit" value="検索">   
+
+            </form>
+        </section>
+    </body>
+</html>
