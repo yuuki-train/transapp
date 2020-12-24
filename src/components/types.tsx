@@ -1,11 +1,11 @@
 export type Trains = {
-    id: string
-    departure: string
-    depHour: number
-    depMinute: number
-    destination: string
-    arvHour: number
-    arvMinute: number
-    trainType: string
-    fee: number
+    readonly id: string
+    readonly departure: string
+    readonly depHour: number
+    readonly depMinute: number
+    readonly destination: string
+    readonly arvHour: number
+    readonly arvMinute: number
+    readonly trainType: string
+    readonly fee: number
 }

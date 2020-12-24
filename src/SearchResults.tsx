@@ -4,7 +4,7 @@ import "./App.css"
 
 class SearchResults extends Component{
 
-    props: Trains
+     props: Trains
     
     constructor(props){
         super(props)
@@ -26,7 +26,7 @@ class SearchResults extends Component{
         fetch(URL, {mode:'cors'})
         .then(res => res.json())
         .then(json =>{
-            this.setState({
+            this.setState({                
                 id: json['id'],
                 departure: json['departure'],
                 depHour: json['depHour'],
@@ -36,21 +36,17 @@ class SearchResults extends Component{
                 arvMinute: json['arvMinute'],
                 trainType: json['trainType'],
                 fee: json['fee']
-
             })
         })
     }
     render(){
         return(
         <section className='SearchResults'>
-                <h2>検索結果</h2>
-                第1経路 {this.state}
-
+            <h2>検索結果</h2>
+            第1経路 {this.state.depHour} : {this.state.depMinute}発
+            {this.state.arvHour} : {this.state.arvHour}着
         </section>
         )
     }
-
-
  } 
-
 export default SearchResults
