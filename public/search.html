@@ -17,17 +17,17 @@
         </nav>
         <section>
             <h2>経路検索</h2>
-            <form action =""　method="post">
+            <form action ="http://localhost:8080/search/train"　method="post">
                 出発地  <input type="text" name="departure" /><br />
                 到着地  <input type="text" name="destination" /><br />
                 利用日　
                     <select name="date">
                         <option value="2020-12-25" selected="selected">2020年12月25日(金)</option>
                     </select>
-                    <select name="hour">
+                    <select name="depHour">
                         <option value="1o" selected="selected">10</option>
                     </select>時
-                    <select name="minute">
+                    <select name="depMinute">
                         <option value="1o" selected="selected">10</option>
                     </select>分<br />
                 <input type="radio" name="depTime" value = "true" checked = "checked" />出発時刻指定
