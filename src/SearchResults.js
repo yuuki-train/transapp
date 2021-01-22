@@ -19,25 +19,30 @@ class SearchResults extends Component{
         }
     }
 
-    componentWillMount(){
-        const URL = 'http://localhost:8080/trains'
+    componentWillMount(){ 
+        const jsonData
+        const counter = 0
+        const URL = 'http://localhost:8080/search/getResults'
         fetch(URL, {mode:'cors'})
-        .then(res => res.json())
-        .then(json =>{
-            this.setState({                
-                id: json['id'],
-                line: json['line'],
-                departure: json['departure'],
-                depHour: json['depHour'],
-                depMinute: json['depMinute'],
-                destination: json['destination'],
-                arvHour: json['arvHour'],
-                arvMinute: json['arvMinute'],
-                trainType: json['trainType'],
-                fee: json['fee'],
-                change: json['change']
-            })
-        })
+        .then(res =>res.json())
+        .then(json => {
+            jsonData = json
+            while(jsonData[counter] != null){
+                this.setState({
+                    id: json[counter]["_id"],
+                    line: json[counter]['line'],
+                    departure: json[counter]['departure'],
+                    depHour: json[counter]['depHour'],
+                    depMinute: json[counter]['depMinute'],
+                    destination: json[counter]['destination'],
+                    arvHour: json[counter]['arvHour'],
+                    arvMinute: json[counter]['arvMinute'],
+                    trainType: json[counter]['trainType'],
+                    fee: json[counter]['fee'],
+                    change: json[counter]['change']
+                })           
+            }       
+        })      
     }
     render(){
         return(
