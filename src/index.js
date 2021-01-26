@@ -7,7 +7,7 @@ ReactDOM.render(
   <React.StrictMode>
     <SearchResults />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('searchResults')
 );
 
 
