@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>経路検索</title>
+        <meta charset="utf-8" />
     </head>
 
     <body>
@@ -39,9 +40,13 @@
                         <option value="change">乗換の少なさ優先</option>
                     </select>
                 <input type="checkbox" name="addFeeTrain"　value="use" />有料列車を利用する<br />
-                <input type="submit" name="search" value="検索">   
-
+                <input type="submit" name="search" value="検索"/>   
             </form>
         </section>
+        <section>
+            <div id="searchResults"></div>
+            <script src="/src/SearchResults.js"></script>
+        </section>
+        
     </body>
 </html>

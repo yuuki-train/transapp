@@ -1,13 +1,13 @@
-  import React from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import SearchResults from './SearchResults';
+import Search from './search';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SearchResults />
+    <Search />
   </React.StrictMode>,
-  document.getElementById('searchResults')
+  document.getElementById('root')
 );
 
 
