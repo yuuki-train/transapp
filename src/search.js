@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import SearchResults from './SearchResults';
-import Form from './Form';
 
 class Search extends Component{
     render(){
@@ -16,9 +15,6 @@ class Search extends Component{
                     <li>利用額の確認</li>
                 </ol>
             </nav>
-            <section>
-                <Form />
-            </section>
             <section>
                 <SearchResults />
             </section>

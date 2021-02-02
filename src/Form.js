@@ -4,7 +4,7 @@ class Form extends Component{
     render(){
         return(
             <div className="form">
-                <form action ="http://localhost:8080/search"　method="post" onSubmit={this.props.handleSubmit}>
+                <form id ="form">
                     出発地  <input type="text" name="departure"  /><br />
                     到着地  <input type="text" name="destination" /><br />
                     利用日　
@@ -26,7 +26,7 @@ class Form extends Component{
                             <option value="change">乗換の少なさ優先</option>
                         </select>
                     <input type="checkbox" name="addFeeTrain"　value="use" />有料列車を利用する<br />
-                    <input type="submit" name="search" value="検索" />   
+                    <input id="search" type="button" name="search" value="検索" />   
                 </form>
             </div>
         )
