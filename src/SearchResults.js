@@ -6,6 +6,7 @@ class SearchResults extends Component {
   constructor(){
     super()
     this.state ={
+      message: '',
       error: ''
     }
     this.list = []
@@ -24,16 +25,34 @@ class SearchResults extends Component {
       })
       .then(res =>res.json())
       .then(json =>{
+        if(json[i]['changeTrain'] != 0){
+          this.setState({
+            message: '（大阪駅乗り換え）'
+          })
+        }else{
+          this.setState({
+            message: ''
+          })
+        }
         for(let i in json){
           if(json[i]["id"]!== null){
-            this.list.push(<li key ={json[i]["id"]}>{json[i]["id"]}</li>)
+            this.list.push(
+            <li key={json[i]["id"]}>  
+              <details key={json[i]["id"]}>
+                <summary>
+                  第{i}経路 {json[i]["depHour"]} : {json[i]["depMinute"]} → {json[i]["arvHour"]} : {json[i]["arvMinute"]}<br />
+                  {json[i]["totalMinutes"]}分、{json[i]["totalCharge"]}円（運賃{json[i]["fair"]}円、有料列車料金{json[i]["fee"]}円）、乗換{json[i]["changeTrain"]}回
+                </summary>
+                {json[i]["depHour"]} : {json[i]["depMinute"]} {json[i]["departure"]}<br />
+                {json[i]["line"]} {json[i]["trainType"]}{this.state.message}<br />
+                {json[i]["arvHour"]} : {json[i]["arvMinute"]} {json[i]["destination"]}<br />         
+              </details>
+            </li>)
           }else{
             break
           }
         }
-        this.setState({
-          error: ''
-        })
+      
       })
       .catch(error =>{
         console.error('Error:', error)
@@ -79,9 +98,9 @@ class SearchResults extends Component {
           </form>
         </div>
         <div className="results"> 
-          <ul>
-          {this.list}
-          </ul><br />
+        <ul>
+        {this.list}
+        </ul>  
           {this.state.error}
         </div>
     </div>
