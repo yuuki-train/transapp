@@ -25,22 +25,30 @@ class SearchResults extends Component {
       })
       .then(res =>res.json())
       .then(json =>{
-        if(json[i]['changeTrain'] != 0){
-          this.setState({
-            message: '（大阪駅乗り換え）'
-          })
-        }else{
-          this.setState({
-            message: ''
-          })
-        }
         for(let i in json){
-          if(json[i]["id"]!== null){
+          if(json[i]["id"]!= null){
+            if(json[i]['changeTrain'] !== 0){
+              this.setState({
+                message: '（大阪駅乗り換え）',
+                error:''
+              })
+            }else{
+              this.setState({
+                message: '',
+                error:''
+              })
+            }
+            let j = 1
+            let numI = parseInt(i)
+            let numJ = parseInt(j)
+            let plusOne = numI + numJ
+            
+            
             this.list.push(
             <li key={json[i]["id"]}>  
-              <details key={json[i]["id"]}>
+              <details>
                 <summary>
-                  第{i}経路 {json[i]["depHour"]} : {json[i]["depMinute"]} → {json[i]["arvHour"]} : {json[i]["arvMinute"]}<br />
+                  第{plusOne}経路 {json[i]["depHour"]} : {json[i]["depMinute"]} → {json[i]["arvHour"]} : {json[i]["arvMinute"]}<br />
                   {json[i]["totalMinutes"]}分、{json[i]["totalCharge"]}円（運賃{json[i]["fair"]}円、有料列車料金{json[i]["fee"]}円）、乗換{json[i]["changeTrain"]}回
                 </summary>
                 {json[i]["depHour"]} : {json[i]["depMinute"]} {json[i]["departure"]}<br />
