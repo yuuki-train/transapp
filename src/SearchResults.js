@@ -6,16 +6,21 @@ class SearchResults extends Component {
   constructor(){
     super()
     this.state ={
-      message: '',
-      error: ''
+      response: '',
+      change:'',
+      errorMessage: ''
     }
-    this.list = []
+    this.results = []
+    this.details = []
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount(){
+    //検索ボタンを押したときに実行されるメソッド
     this.onclick = function update(){
-      this.list.length = 0
+      //検索結果表示部分のリストの初期化
+      this.results.length = 0
+      //フォームの内容をAPIに転送し、レスポンスをfetchする
       let formData = new FormData(document.getElementById('form'));
       const URL = 'http://localhost:8080/search'
       fetch(URL, {
@@ -25,47 +30,62 @@ class SearchResults extends Component {
       })
       .then(res =>res.json())
       .then(json =>{
+        //検索件数分だけ繰り返し
         for(let i in json){
-          if(json[i]["id"]!= null){
-            if(json[i]['changeTrain'] !== 0){
-              this.setState({
-                message: '（大阪駅乗り換え）',
-                error:''
-              })
-            }else{
-              this.setState({
-                message: '',
-                error:''
-              })
-            }
-            let j = 1
-            let numI = parseInt(i)
-            let numJ = parseInt(j)
-            let plusOne = numI + numJ
+          //大阪駅乗り換えの文章表示（削除予定）
+          if(json[i]['changeTrain'] !== 0){
+            this.setState({
+              change: '（大阪駅乗り換え）'
+            })
+          }else{
+            this.setState({
+              change: ''
+            })
+          }
+
+          //経路番号表示(i+1)の数字型変換
+          let j = 1
+          let numI = parseInt(i)
+          let numJ = parseInt(j)
+          let plusOne = numI + numJ
             
-            
-            this.list.push(
+          //検索結果部分の表示  
+          this.results.push(
             <li key={json[i]["id"]}>  
               <details>
                 <summary>
                   第{plusOne}経路 {json[i]["depHour"]} : {json[i]["depMinute"]} → {json[i]["arvHour"]} : {json[i]["arvMinute"]}<br />
                   {json[i]["totalMinutes"]}分、{json[i]["totalCharge"]}円（運賃{json[i]["fair"]}円、有料列車料金{json[i]["fee"]}円）、乗換{json[i]["changeTrain"]}回
                 </summary>
-                {json[i]["depHour"]} : {json[i]["depMinute"]} {json[i]["departure"]}<br />
-                {json[i]["line"]} {json[i]["trainType"]}{this.state.message}<br />
-                {json[i]["arvHour"]} : {json[i]["arvMinute"]} {json[i]["destination"]}<br />         
+                <ul>
+                  {this.details}
+                </ul>                         
               </details>
-            </li>)
-          }else{
-            break
-          }
+            </li>
+          )
+
+          //経路詳細部分の表示
+          this.details.length = 0
+          this.details.push(
+            <li key={json[i]["id"]}>
+              {json[i]["depHour"]} : {json[i]["depMinute"]} {json[i]["departure"]}<br />
+              {json[i]["line"]} {json[i]["trainType"]}{this.state.change}<br />
+              {json[i]["arvHour"]} : {json[i]["arvMinute"]} {json[i]["destination"]}<br />   
+            </li>
+          )
         }
-      
+        //レスポンス処理の正常完了を表すようstateを更新する。
+        this.setState({
+          response: 'OK',
+          errorMessage:''
+        })     
       })
       .catch(error =>{
+        //エラー内容をコンソールに表示させ、レスポンス処理のエラーを表すようstateを更新する。
         console.error('Error:', error)
         this.setState({
-          error: 'エラーが発生しました'
+          response: 'error',
+          errorMessage: 'エラーが発生しました'
         })
       })
     }
@@ -106,10 +126,10 @@ class SearchResults extends Component {
           </form>
         </div>
         <div className="results"> 
-        <ul>
-        {this.list}
-        </ul>  
-          {this.state.error}
+          <ul>
+            {this.results}
+          </ul>  
+          {this.state.errorMessage}
         </div>
     </div>
     )
