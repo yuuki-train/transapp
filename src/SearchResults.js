@@ -98,7 +98,6 @@ class SearchResults extends Component {
         .then(json =>{
 
           //検索条件の概略文を構成する。
-          const depart = document.getElementById('depart').value;
           const year = date.slice(0,4);
           const month = date.slice(5,7);
           const dat = date.slice(8);
@@ -111,7 +110,8 @@ class SearchResults extends Component {
           const sentence1 = '検索結果'
           const sentence2 = year +'年'+ month +'月'+ dat +'日（'+ day + '） ' + departure + ' → ' + destination;
           let sentence3 = ''
-          if (depart === 'depart'){
+          //出発時刻が指定されていたら出発を表示し、されていなければ到着を表示する。
+          if (document.searchForm.depOrArv[0].checked){
             sentence3 = time + ' 出発';
           }else{
             sentence3 = time + ' 到着';
@@ -213,13 +213,13 @@ class SearchResults extends Component {
       <div className="render">
         <h2>経路検索</h2>
         <div className="form">
-          <form id ="form">
+          <form id="form" name="searchForm">
             出発駅  <input id="departure" type="text" name="departure" required/><br />
             到着駅  <input id="destination" type="text" name="destination" required/><br />
             利用日時
             <input　id="date" type="date" name="date" defaultValue={this.state.date} required/>
             <input  id="time" type="time" name="time" defaultValue={this.state.time} required/><br />
-            <input id="depart" type="radio" name="depOrArv" value = "depart" defaultChecked/>出発時刻指定
+            <input type="radio" name="depOrArv" value = "depart" defaultChecked/>出発時刻指定
             <input type="radio" name="depOrArv" value = "arrive" />到着時刻指定<br />
             優先事項
             <select name = "priority" defaultValue="faster">
@@ -230,7 +230,9 @@ class SearchResults extends Component {
             <input type="checkbox" name="addFeeTrain"　value="use" />有料列車を利用する<br />
             検索件数
             <select id="theNumberOfSearch" name="theNumberOfSearch" defaultValue="3">
+              <option value="1">1件</option>
               <option value="3">3件</option>
+              <option value="5">5件</option>
             </select><br />
             <input id="search" type="button" name="search" value="検索" />   
           </form>
