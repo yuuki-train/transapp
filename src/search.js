@@ -6,7 +6,7 @@ class Search extends Component{
         return(
         <div className="search">
             <header>
-            交通アプリ
+            <h1>交通アプリ</h1>
             </header>
             <nav>
                 <ol>
